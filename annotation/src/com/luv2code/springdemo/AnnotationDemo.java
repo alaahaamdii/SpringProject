@@ -6,28 +6,31 @@ public class AnnotationDemo {
 
 	public static void main(String[] args) {
 
-		// load the spring configuration file
-		ClassPathXmlApplicationContext context = 
-				new ClassPathXmlApplicationContext("applicationContext.xml");
+		// load spring config file
+		ClassPathXmlApplicationContext context = new 
+				ClassPathXmlApplicationContext("applicationContext.xml");	
 				
-		// get the bean from spring container
-		SwimCoach theCoach = context.getBean("swimCoach", SwimCoach.class);
+		// retrieve bean from spring container
+		Coach theCoach = context.getBean("tennisCoach", Coach.class);
+
+		Coach alphaCoach = context.getBean("tennisCoach", Coach.class);
 		
-		// call a method on the bean
-		System.out.println(theCoach.getDailyWorkout());
-				
-		// call method to get the daily fortune
-		System.out.println(theCoach.getDailyFortune());
-			
-		// call our new swim coach methods ... has the props values injected
-		System.out.println("email: " + theCoach.getEmail());
-		System.out.println("team: " + theCoach.getTeam());
+		// check if they are the same
+		boolean result = (theCoach == alphaCoach);
+		
+		// print out the results
+		System.out.println("\nPointing to the same object: " + result);
+		
+		System.out.println("\nMemory location for theCoach: " + theCoach);
+
+		System.out.println("\nMemory location for alphaCoach: " + alphaCoach + "\n");
 		
 		// close the context
 		context.close();
 	}
 
 }
+
 
 
 
