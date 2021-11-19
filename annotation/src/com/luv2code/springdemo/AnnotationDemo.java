@@ -1,40 +1,33 @@
 package com.luv2code.springdemo;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AnnotationDemo {
 
 	public static void main(String[] args) {
 
-		// load spring config file
-		ClassPathXmlApplicationContext context = new 
-				ClassPathXmlApplicationContext("applicationContext.xml");	
+		// read spring config java class
+		AnnotationConfigApplicationContext context = 
+				new AnnotationConfigApplicationContext(SportConfig.class);
+		
+		// get the bean from spring container
+		SwimCoach theCoach = context.getBean("swimCoach", SwimCoach.class);
+		
+		// call a method on the bean
+		System.out.println(theCoach.getDailyWorkout());
 				
-		// retrieve bean from spring container
-		Coach theCoach = context.getBean("tennisCoach", Coach.class);
-
-		Coach alphaCoach = context.getBean("tennisCoach", Coach.class);
-		
-		// check if they are the same
-		boolean result = (theCoach == alphaCoach);
-		
-		// print out the results
-		System.out.println("\nPointing to the same object: " + result);
-		
-		System.out.println("\nMemory location for theCoach: " + theCoach);
-
-		System.out.println("\nMemory location for alphaCoach: " + alphaCoach + "\n");
+		// call method to get the daily fortune
+		System.out.println(theCoach.getDailyFortune());
+			
+		// call our new swim coach methods ... has the props values injected
+		System.out.println("email: " + theCoach.getEmail());
+		System.out.println("team: " + theCoach.getTeam());
 		
 		// close the context
 		context.close();
+		
 	}
 
 }
-
-
-
-
-
-
 
 
